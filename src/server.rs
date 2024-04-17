@@ -36,7 +36,7 @@ fn main() {
             } else { "Unknowm".to_string() };
 
             println!("{} connected as {}", addr, client_name);
-            clients.push((socket.try_clone().expect("Failed to clone client"), client_name));
+            clients.push((socket.try_clone().expect("Failed to clone client"), client_name.clone()));
 
             // Spawn thread to handle each client
             thread::spawn(move || {

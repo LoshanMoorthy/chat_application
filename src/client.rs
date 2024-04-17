@@ -8,15 +8,15 @@ const LOCAL: &str = "127.0.0.1:6000";
 const MSG_SIZE: usize = 32; // Buffer size of messages
 
 fn main() {
+    println!("Enter your name:");
+    let mut name = String::new();
+    stdin().read_line(&mut name).expect("Reading from stdin failed");
+
     let mut client = TcpStream::connect(LOCAL).expect("Failed to connect");
     client.set_nonblocking(true).expect("Failed to initialize non-blocking");
 
     // Instantiate a channel which will receive strings
     let (tx, rx) = mpsc::channel::<String>();
-
-    println!("Enter your name:");
-    let mut name = String::new();
-    stdin().read_line(&mut name).expect("Reading from stdin failed");
 
     // Send name to the server
     let mut name_buff = name.clone().into_bytes();
